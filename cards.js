@@ -1,0 +1,92 @@
+cards = [
+{ title: "Appeltaart",
+img: "./img/appeltaart.jpg",
+sweetness: 90,
+nutrition: 20,
+fry: 0
+},
+{ title: "Bitterballen",
+img: "./img/bitterballen.jpg",
+sweetness: 0,
+nutrition: 10,
+fry: 100
+},
+{ title: "Broodje Kaas",
+img: "./img/broodjekaas.jpg",
+sweetness: 0,
+nutrition: 40,
+fry: 0
+},
+{ title: "frikandel",
+img: "./img/frikandel.jpg",
+sweetness: 0,
+nutrition: 0,
+fry: 100
+},
+{ title: "Hagelslag",
+img: "./img/hagelslag.jpg",
+sweetness: 95,
+nutrition: 20,
+fry: 0
+},
+{ title: "Krentebol",
+img: "./img/krentebol.jpg",
+sweetness: 65,
+nutrition: 30,
+fry: 0
+},
+{ title: "Kroket",
+img: "./img/kroket.jpg",
+sweetness: 0,
+nutrition: 10,
+fry: 100
+},
+{ title: "Oliebol",
+img: "./img/oliebol.jpg",
+sweetness: 85,
+nutrition: 5,
+fry: 100
+},
+{ title: "Ontbijtkoek",
+img: "./img/ontbijtkoek.jpg",
+sweetness: 35,
+nutrition: 25,
+fry: 0
+},
+{ title: "Poffertjes",
+img: "./img/poffertjes.jpg",
+sweetness: 90,
+nutrition: 30,
+fry: 70
+},
+{ title: "Stamppot",
+img: "./img/stamppot.jpg",
+sweetness: 0,
+nutrition: 75,
+fry: 0
+},
+{ title: "Stroopwafel",
+img: "./img/stroopwafel.jpg",
+sweetness: 70,
+nutrition: 20,
+fry: 0
+},
+{ title: "Uitsmijter",
+img: "./img/uitsmijter.jpg",
+sweetness: 0,
+nutrition: 70,
+fry: 20
+},
+{ title: "Unix soup",
+img: "./img/unox.jpg",
+sweetness: 0,
+nutrition: 70,
+fry: 0
+},
+{ title: "Vla",
+img: "./img/vla.jpg",
+sweetness: 90,
+nutrition: 20,
+fry: 0
+},
+]

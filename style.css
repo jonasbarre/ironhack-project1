@@ -1,0 +1,282 @@
+/*
+Color scheme
+
+Primary
+#2196f3
+
+P — Light
+#6ec6ff
+
+P — Dark
+#0069c0
+
+Secondary
+#ef5350
+
+S — Light
+#ff867c
+
+S — Dark
+#b61827
+
+
+Text
+#000000
+
+Dark grey
+#E1E2E1
+
+Light grey
+#F5F5F6
+
+*/
+
+html, body {
+    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0;
+    /* background-color: white; */
+    background-image: url(img/pattern1.png);
+    background-repeat: repeat;
+    background-size: 250px 250px;
+}
+
+/*----------------------- Start screen --------------------------*/
+
+.start-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#start-wrapper {
+    width: 800px;
+    height: 600px;
+    background-color: #6ec6ff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    -webkit-box-shadow: 20px 20px 160px -40px rgba(0,0,0,0.36);
+    -moz-box-shadow: 20px 20px 160px -40px rgba(0,0,0,0.36);
+    box-shadow: 20px 20px 160px -40px rgba(0,0,0,0.36);
+    border: 1px solid grey;
+
+}
+
+.red, .white, .blue {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.red {
+    width: 100%;
+    height: 200px;
+    background-color: #b61827;
+    color:white;
+}
+
+.white {
+    width: 100%;
+    height: 200px;
+    background-color: white;
+}
+
+.blue {
+    width: 100%;
+    height: 200px;
+    background-color: #0069c0;
+    color: white;
+}
+
+.explanation {
+    width: 350px;
+}
+
+#signup {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#start-game {
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#player-name {
+    border: 2px solid black;
+    height: 20px;
+}
+
+.start-game:hover {
+    background-color: grey;
+}
+
+/*----------------------- Utilities --------------------------*/
+
+.hidden {
+    display: none;
+}
+
+/*----------------------- Game screen --------------------------*/
+
+.game-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: white;
+    border-radius: 50px;
+    margin-bottom: 45px;
+    height: 50px;
+    width: 700px;
+    z-index: 5;
+}
+
+.game-status div {
+    /* margin-right: 20px; */
+}
+
+.game-screen {
+    width: 1000px;
+    height: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.player-side, .computer-side {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-side{
+    width: 500px;
+    height: 600px;
+    
+}
+
+.computer-side{
+    width: 500px;
+    height: 600px;
+}
+
+  .versus:hover { 
+    background-color: #b61827;
+  }
+
+  .results {
+    height: 150px;
+    width: 300px;
+    background-color: #0068bf;
+    opacity: 0.85;
+    color: white;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: 5;
+    -webkit-box-shadow: 20px 20px 160px -40px rgba(0,0,0,0.36);
+    -moz-box-shadow: 20px 20px 160px -40px rgba(0,0,0,0.36);
+    box-shadow: 20px 20px 160px -40px rgba(0,0,0,0.36);
+  }
+
+/*----------------------- Cards --------------------------*/
+
+.card-front, .card-back {
+    width: 350px;
+    height: 500px;
+    border-radius: 10px;
+    border: 1px solid #E1E2E1;
+    -webkit-box-shadow: 20px 20px 160px -40px rgba(0,0,0,0.36);
+    -moz-box-shadow: 20px 20px 160px -40px rgba(0,0,0,0.36);
+    box-shadow: 20px 20px 160px -40px rgba(0,0,0,0.36);
+}
+
+.card-front {
+    background-color: #F5F5F5;
+}
+
+.top-container {
+    background-color: black;
+    width: 350px;
+    height: 250px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    position: relative;
+    background-size: cover;
+}
+
+.top-img {
+    width: 350px;
+    height: 250px;
+    filter:opacity(80%);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-title {
+    position: absolute; 
+    top: 180px; 
+    margin-left: 20px;
+    font-size: 25px;
+    background-color: white;
+    padding: 10px;
+}
+
+.properties {
+    margin-top: 10px;
+}
+
+.prop-row-sweet, .prop-row-nutrition,.prop-row-deepfry {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #E0E0E0;
+}
+
+.player-side .prop-row-sweet:hover, .player-side .prop-row-nutrition:hover, .player-side .prop-row-deepfry:hover { 
+    background-color: #2196f3;
+  }
+
+.prop-label{
+    font-weight: bold;
+}
+
+.sweetness-value, .nutrition-value, .fry-value{
+    font-size: 1.5em;
+}
+
+.card-back {
+    background:
+    radial-gradient(#2196f3 2px, transparent 3px),
+    radial-gradient(#ef5350 2px, transparent 3px),
+    #fff;
+    background-position: 0 0, 20px 20px;
+    background-size: 40px 40px;
+}
