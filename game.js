@@ -1,113 +1,21 @@
-// Array of all cards
+// class Player {
+//     constructor(points) {
+//         this.points = points
+//     }
+//     attack() {
+//         return this.strength
+//     }
+//     receiveDamage(damage) {
+//         this.health = this.health - damage
+//     }
+//   }
 
-cards = [
-    {
-        title: "Appeltaart",
-        img: "appeltaart.jpg",
-        sweetness: 90,
-        nutrition: 20,
-        fry: 0
-    },
-    {
-        title: "Bitterballen",
-        img: "bitterballen.jpg",
-        sweetness: 0,
-        nutrition: 10,
-        fry: 100
-    },
-    {
-        title: "Broodje Kaas",
-        img: "broodjekaas.jpg",
-        sweetness: 0,
-        nutrition: 40,
-        fry: 0
-    },
-    {
-        title: "Frikandel",
-        img: "frikandel.jpg",
-        sweetness: 0,
-        nutrition: 0,
-        fry: 100
-    },
-    {
-        title: "Hagelslag",
-        img: "hagelslag.jpg",
-        sweetness: 95,
-        nutrition: 20,
-        fry: 0
-    },
-    {
-        title: "Krentebol",
-        img: "krentebol.jpg",
-        sweetness: 65,
-        nutrition: 30,
-        fry: 0
-    },
-    {
-        title: "Kroket",
-        img: "kroket.jpg",
-        sweetness: 0,
-        nutrition: 10,
-        fry: 100
-    },
-    {
-        title: "Oliebol",
-        img: "oliebollen.jpg",
-        sweetness: 85,
-        nutrition: 5,
-        fry: 100
-    },
-    {
-        title: "Ontbijtkoek",
-        img: "ontbijtkoek.jpg",
-        sweetness: 35,
-        nutrition: 25,
-        fry: 0
-    },
-    {
-        title: "Poffertjes",
-        img: "poffertjes.jpg",
-        sweetness: 90,
-        nutrition: 30,
-        fry: 70
-    },
-    {
-        title: "Stamppot",
-        img: "stamppot.jpg",
-        sweetness: 0,
-        nutrition: 75,
-        fry: 0
-    },
-    {
-        title: "Stroopwafel",
-        img: "stroopwafel.jpg",
-        sweetness: 70,
-        nutrition: 20,
-        fry: 0
-    },
-    {
-        title: "Uitsmijter",
-        img: "uitsmijter.jpg",
-        sweetness: 0,
-        nutrition: 70,
-        fry: 20
-    },
-    {
-        title: "Unox soup",
-        img: "unox.jpg",
-        sweetness: 0,
-        nutrition: 70,
-        fry: 0
-    },
-    {
-        title: "Vla",
-        img: "vla.jpg",
-        sweetness: 90,
-        nutrition: 20,
-        fry: 0
-    },
-]
 
+
+
+
+
+// Start button
 const startGameButton = document.getElementById('start-game');
 
 // First, let's shuffle the cards
@@ -132,6 +40,7 @@ function shuffle(array) {
 
 cardStack = shuffle(cards);
 
+// Utilities
 currentCard = 0;
 playerCard = 0;
 computerCard = 1;
@@ -151,7 +60,8 @@ function updateCurrentCards() {
     console.log(`computer card: ${computerCard}`);
 }
 
-// Start button
+
+
 startGameButton.addEventListener('click', () => {
     if (document.getElementById('player-name').value === '') {
         // Alert if no name is entered
@@ -249,13 +159,14 @@ function renderCard(player) {
     })
 }
 
-
+// Insert card on the computer side
 function showComputerCard() {
     const computerCard = document.querySelector('.computer-side');
     computerCard.querySelector('.card-back').remove();
     renderCard('computer');
 }
 
+// Update the points on the status panel
 function updatePointsPanels() {
     playerPointsDisplay = document.querySelector('.player-points-display')
     playerPointsDisplay.innerText = `${playerPoints}`;
@@ -263,8 +174,7 @@ function updatePointsPanels() {
     computerPointsDisplay.innerText = `${computerPoints}`;
 }
 
-
-
+// Check who scored higher on sweetness
 function compareSweetness() {
     if (cardStack[playerCard].sweetness > cardStack[computerCard].sweetness) {
         showResults('Lekker, you won!');
@@ -277,6 +187,7 @@ function compareSweetness() {
     }
 }
 
+// Check who scored higher on nutrition
 function compareNutrition() {
     if (cardStack[playerCard].nutrition > cardStack[computerCard].nutrition) {
         showResults('Lekker, you won!');
@@ -289,6 +200,7 @@ function compareNutrition() {
     }
 }
 
+// Check who scored higher on deepfry
 function compareDeepfry() {
     if (cardStack[playerCard].fry > cardStack[computerCard].fry) {
         showResults('Lekker, you won!');
@@ -301,6 +213,7 @@ function compareDeepfry() {
     }
 }
 
+// Display message depending on round count
 function showResults(message) {
     var h = document.querySelector(`.game-screen`);
     if (currentRound <= 4) {
@@ -308,10 +221,10 @@ function showResults(message) {
         ${message}
         <button class='next-round'>Next round</button>
     </div>`)
-    const nextRoundButton = document.querySelector('.next-round');
-    nextRoundButton.addEventListener('click', () => {
-        newRound();
-    });
+        const nextRoundButton = document.querySelector('.next-round');
+        nextRoundButton.addEventListener('click', () => {
+            newRound();
+        });
     } else {
         h.insertAdjacentHTML("afterbegin", `<div class="results">
         The game is over! 
@@ -319,6 +232,7 @@ function showResults(message) {
     }
 };
 
+// New round: Refresh game screen
 function newRound() {
     updateCurrentCards();
     currentRound++;
