@@ -107,6 +107,10 @@ html, body {
     width: 350px;
 }
 
+a {
+    color: white;
+}
+
 #signup {
     display: flex;
     flex-direction: row;

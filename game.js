@@ -198,7 +198,7 @@ function showResults(message) {
     } else if (game.round > 4 && game.humanPlayer.points > game.computerPlayer.points) {
         h.insertAdjacentHTML("afterbegin", `<div class="results-big">
         ${message}<br />
-        <h1>You won the game!</h1>
+        <h1>${game.humanPlayer.name}, you won the game!</h1>
         <img src="./img/winner.gif" alt="">
         
         <br /><button class="restart">Restart the game</button>
@@ -211,7 +211,7 @@ function showResults(message) {
     else if (game.round > 4 && game.humanPlayer.points < game.computerPlayer.points) {
         h.insertAdjacentHTML("afterbegin", `<div class="results-big">
         ${message}<br />
-        <h1>You lost the game!</h1>
+        <h1>${game.humanPlayer.name}, you lost the game!</h1>
         <img src="./img/loser.gif" alt="">
         
         <br /><button class="restart">Restart the game</button>
