@@ -173,11 +173,11 @@ function updatePointsPanels() {
 // Check who scored higher on the given dimension
 function compareValues(dimension) {
     if (game.cards[game.humanPlayer.currentCard][dimension] > game.cards[game.computerPlayer.currentCard][dimension]) {
-        showResults('Lekker, you won this round.');
         game.humanPlayer.points++;
+        showResults('Lekker, you won this round.');
     } else if (game.cards[game.humanPlayer.currentCard][dimension] < game.cards[game.computerPlayer.currentCard][dimension]) {
-        showResults('You lost this round.');
         game.computerPlayer.points++;
+        showResults('You lost this round.');
     } else {
         showResults('There is no winner this round.');
     }
@@ -224,7 +224,7 @@ function showResults(message) {
     else if (game.round > 4 && game.humanPlayer.points === game.computerPlayer.points) {
         h.insertAdjacentHTML("afterbegin", `<div class="results-big">
         ${message}<br />
-        <h1>There is no winner.</h1>
+        <h1>There is no overall winner.</h1>
         <img src="./img/giphy-obama.gif" alt="">
         
         <br /><button class="restart">Restart the game</button>
