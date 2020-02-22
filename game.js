@@ -1,66 +1,66 @@
-// class Player {
-//     constructor(points) {
-//         this.points = points
-//     }
-//     attack() {
-//         return this.strength
-//     }
-//     receiveDamage(damage) {
-//         this.health = this.health - damage
-//     }
-//   }
-
-
-
-
-
-
 // Start button
 const startGameButton = document.getElementById('start-game');
 
-// First, let's shuffle the cards
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
+class Game {
+    constructor(round = 1,nextCard = 0, cards) {
+        this.round = round
+        this.nextCard = nextCard
+        this.computerPlayer = new Player()
+        this.humanPlayer = new Human()
+        this.cards = cards
+        this.shuffleCards()
+        // this.assignCards()
+    }
+    advanceRound() {
+        this.round++;
+    }
+    advanceCard() {
+        this.nextCard += 1;
+    }
+    shuffleCards(array = deck) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
     // While there remain elements to shuffle...
     while (0 !== currentIndex) {
-
         // Pick a remaining element...
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-
         // And swap it with the current element.
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
     }
-
     return array;
+    }
+    updateCurrentCards() {
+        game.humanPlayer.currentCard += 2;
+        game.computerPlayer.currentCard += 2;
+        console.log(`player card: ${game.humanPlayer.currentCard}`);
+        console.log(`computer card: ${game.computerPlayer.currentCard}`);
+    }
+
+    // assignCards () {
+    //     this.humanPlayer.cards.push(randomCard)
+    // }
 }
 
-cardStack = shuffle(cards);
-
-// Utilities
-currentCard = 0;
-playerCard = 0;
-computerCard = 1;
-playerPoints = 0;
-computerPoints = 0;
-currentRound = 1;
-
-function advanceCard() {
-    currentCard += 1;
-    console.log(`currentcard: ${currentCard}`);
+class Player {
+    constructor(points = 0, currentCard = 1) {
+        this.points = points
+        this.currentCard = currentCard
+    }
+    winRound() {
+        this.points++;
+    }
 }
 
-function updateCurrentCards() {
-    playerCard += 2;
-    computerCard += 2;
-    console.log(`player card: ${playerCard}`);
-    console.log(`computer card: ${computerCard}`);
+class Human extends Player {
+    constructor(points = 0, currentCard = 0, name) {
+        super(points, currentCard)
+        this.name = name
+    }
 }
 
-
+const game = new Game(1, 0, deck);
 
 startGameButton.addEventListener('click', () => {
     if (document.getElementById('player-name').value === '') {
@@ -68,17 +68,17 @@ startGameButton.addEventListener('click', () => {
         alert('Please insert a name to begin');
     } else {
         // Read out player name
-        let playerName = document.getElementById('player-name').value;
+        game.humanPlayer.name = document.getElementById('player-name').value;
         // Hide Start screen and show the game screen
         document.querySelector('.start-container').classList.add('hidden');
         document.querySelector('.container').classList.remove('hidden');
-        displayName(playerName);
+        displayName(game.humanPlayer.name);
         renderCard('player');
     }
 });
 
 // Display player name in the game status bar
-function displayName(name) {
+const displayName = name => {
     const playerNameDisplay = document.querySelector('.player-name-display');
     playerNameDisplay.innerText = name;
 }
@@ -119,48 +119,44 @@ function renderCard(player) {
     const card = document.querySelector(`.${player}-side .card-front`);
 
     const cardTitle = card.querySelector('.card-title');
-    cardTitle.innerHTML = cardStack[currentCard].title;
+    cardTitle.innerHTML = game.cards[game.nextCard].title;
 
     const bgContainer = card.querySelector('.top-container');
-    bgContainer.style.backgroundImage = `url(./img/${cardStack[currentCard].img})`;
+    bgContainer.style.backgroundImage = `url(./img/${game.cards[game.nextCard].img})`;
 
     const sweetnessValue = card.querySelector('.sweetness-value');
-    sweetnessValue.innerHTML = cardStack[currentCard].sweetness;
+    sweetnessValue.innerHTML = game.cards[game.nextCard].sweetness;
 
     const nutritionValue = card.querySelector('.nutrition-value');
-    nutritionValue.innerHTML = cardStack[currentCard].nutrition;
+    nutritionValue.innerHTML = game.cards[game.nextCard].nutrition;
 
     const fryValue = card.querySelector('.fry-value');
-    fryValue.innerHTML = cardStack[currentCard].fry;
+    fryValue.innerHTML = game.cards[game.nextCard].fry;
 
-    // +1 on the currentCard variable
-    advanceCard();
+    // +1 on the nextCard variable
+    game.advanceCard();
 
-    // Add event listeners on each property. Once clicked, the computer's card is revealed the scores are compared.
-    const choice1 = document.querySelector('.prop-row-sweet');
-    choice1.addEventListener('click', () => {
-        showComputerCard();
-        compareSweetness();
+    // Add event listeners on the properties. Once clicked, the computer's card is revealed the scores are compared.
+    const choice = document.querySelector('.properties');
+    choice.addEventListener('click', e => {
+        console.log(e.target.className)
+        flipComputerCard();
+        if (e.target.className === 'prop-row-sweet') {
+            document.querySelector(".prop-row-sweet").classList.add("selected");
+            compareValues('sweetness');
+        } else if (e.target.className === 'prop-row-nutrition') {
+            compareValues('nutrition');
+            document.querySelector(".prop-row-nutrition").classList.add("selected");
+        } else if (e.target.className === 'prop-row-deepfry') {
+            document.querySelector(".prop-row-deepfry").classList.add("selected");
+            compareValues('fry');
+        }
         updatePointsPanels();
-    })
-
-    const choice2 = document.querySelector('.prop-row-nutrition');
-    choice2.addEventListener('click', () => {
-        showComputerCard();
-        compareNutrition();
-        updatePointsPanels();
-    })
-
-    const choice3 = document.querySelector('.prop-row-deepfry');
-    choice3.addEventListener('click', () => {
-        showComputerCard();
-        compareDeepfry();
-        updatePointsPanels();
-    })
+    });
 }
 
 // Insert card on the computer side
-function showComputerCard() {
+function flipComputerCard() {
     const computerCard = document.querySelector('.computer-side');
     computerCard.querySelector('.card-back').remove();
     renderCard('computer');
@@ -169,54 +165,28 @@ function showComputerCard() {
 // Update the points on the status panel
 function updatePointsPanels() {
     playerPointsDisplay = document.querySelector('.player-points-display')
-    playerPointsDisplay.innerText = `${playerPoints}`;
+    playerPointsDisplay.innerText = `${game.humanPlayer.points}`;
     computerPointsDisplay = document.querySelector('.computer-points-display')
-    computerPointsDisplay.innerText = `${computerPoints}`;
+    computerPointsDisplay.innerText = `${game.computerPlayer.points}`;
 }
 
-// Check who scored higher on sweetness
-function compareSweetness() {
-    if (cardStack[playerCard].sweetness > cardStack[computerCard].sweetness) {
-        showResults('Lekker, you won!');
-        playerPoints++;
-    } else if (cardStack[playerCard].sweetness < cardStack[computerCard].sweetness) {
-        showResults('You lost.');
-        computerPoints++;
+// Check who scored higher on the given dimension
+function compareValues(dimension) {
+    if (game.cards[game.humanPlayer.currentCard][dimension] > game.cards[game.computerPlayer.currentCard][dimension]) {
+        showResults('Lekker, you won this round.');
+        game.humanPlayer.points++;
+    } else if (game.cards[game.humanPlayer.currentCard][dimension] < game.cards[game.computerPlayer.currentCard][dimension]) {
+        showResults('You lost this round.');
+        game.computerPlayer.points++;
     } else {
-        showResults('You have met your equal!');
-    }
-}
-
-// Check who scored higher on nutrition
-function compareNutrition() {
-    if (cardStack[playerCard].nutrition > cardStack[computerCard].nutrition) {
-        showResults('Lekker, you won!');
-        playerPoints++;
-    } else if (cardStack[playerCard].nutrition < cardStack[computerCard].nutrition) {
-        showResults('You lost.');
-        computerPoints++;
-    } else {
-        showResults('You have met your equal!');
-    }
-}
-
-// Check who scored higher on deepfry
-function compareDeepfry() {
-    if (cardStack[playerCard].fry > cardStack[computerCard].fry) {
-        showResults('Lekker, you won!');
-        playerPoints++;
-    } else if (cardStack[playerCard].fry < cardStack[computerCard].fry) {
-        showResults('You lost.');
-        computerPoints++;
-    } else {
-        showResults('You have met your equal!');
+        showResults('There is no winner this round.');
     }
 }
 
 // Display message depending on round count
 function showResults(message) {
     var h = document.querySelector(`.game-screen`);
-    if (currentRound <= 4) {
+    if (game.round <= 4) {
         h.insertAdjacentHTML("afterbegin", `<div class="results">
         ${message}
         <button class='next-round'>Next round</button>
@@ -225,17 +195,51 @@ function showResults(message) {
         nextRoundButton.addEventListener('click', () => {
             newRound();
         });
-    } else {
-        h.insertAdjacentHTML("afterbegin", `<div class="results">
-        The game is over! 
+    } else if (game.round > 4 && game.humanPlayer.points > game.computerPlayer.points) {
+        h.insertAdjacentHTML("afterbegin", `<div class="results-big">
+        ${message}<br />
+        <h1>You won the game!</h1>
+        <img src="./img/winner.gif" alt="">
+        
+        <br /><button class="restart">Restart the game</button>
     </div>`)
+        const restartButton = document.querySelector('.restart');
+        restartButton.addEventListener('click', () => {
+            location.reload();
+        });
+    }
+    else if (game.round > 4 && game.humanPlayer.points < game.computerPlayer.points) {
+        h.insertAdjacentHTML("afterbegin", `<div class="results-big">
+        ${message}<br />
+        <h1>You lost the game!</h1>
+        <img src="./img/loser.gif" alt="">
+        
+        <br /><button class="restart">Restart the game</button>
+    </div>`)
+        const restartButton = document.querySelector('.restart');
+        restartButton.addEventListener('click', () => {
+            location.reload();
+        });
+    }
+    else if (game.round > 4 && game.humanPlayer.points > game.computerPlayer.points) {
+        h.insertAdjacentHTML("afterbegin", `<div class="results-big">
+        ${message}<br />
+        <h1>There is no winner.</h1>
+        <img src="./img/giphy-obama.gif" alt="">
+        
+        <br /><button class="restart">Restart the game</button>
+    </div>`)
+        const restartButton = document.querySelector('.restart');
+        restartButton.addEventListener('click', () => {
+            location.reload();
+        });
     }
 };
 
 // New round: Refresh game screen
 function newRound() {
-    updateCurrentCards();
-    currentRound++;
+    game.updateCurrentCards();
+    game.round++;
     var gameScreen = document.querySelector('.game-screen');
     gameScreen.innerHTML = `            <div class="player-side">
     <!-- This is where the card will be placed -->
@@ -247,5 +251,5 @@ function newRound() {
     renderCard('player');
 
     const roundDisplay = document.querySelector('.round-display');
-    roundDisplay.innerHTML = `${currentRound}`
+    roundDisplay.innerHTML = `${game.round}`
 };

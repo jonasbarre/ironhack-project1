@@ -1,5 +1,5 @@
 // Array of all cards
-cards = [
+const deck = [
     {
         title: "Appeltaart",
         img: "appeltaart.jpg",
