@@ -221,7 +221,7 @@ function showResults(message) {
             location.reload();
         });
     }
-    else if (game.round > 4 && game.humanPlayer.points > game.computerPlayer.points) {
+    else if (game.round > 4 && game.humanPlayer.points === game.computerPlayer.points) {
         h.insertAdjacentHTML("afterbegin", `<div class="results-big">
         ${message}<br />
         <h1>There is no winner.</h1>
